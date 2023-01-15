@@ -10,20 +10,19 @@ const getDifferenceTrees = (dataObj1, dataObj2) => {
   const diffTrees = keys.map((key) => {
     if (!Object.hasOwn(dataObj1, key)) {
       return { key, value: dataObj2[key], type: 'added' };
-    } else if (!Object.hasOwn(dataObj2, key)) {
+    } if (!Object.hasOwn(dataObj2, key)) {
       return { key, value: dataObj1[key], type: 'deleted' };
-    } else if (dataObj1[key] !== dataObj2[key]) {
+    } if (dataObj1[key] !== dataObj2[key]) {
       return { key, value: [dataObj1[key], dataObj2[key]], type: 'changed' };
-    } else {
-      return { key, value: dataObj1[key], type: 'unchanged' };
     }
-  })
+    return { key, value: dataObj1[key], type: 'unchanged' };
+  });
 
   return diffTrees;
 };
 
-const stringfy = (array) => {
-  const lines = array.map((item) => {
+const stringfy = (arr) => {
+  const lines = arr.map((item) => {
     switch (item.type) {
       case 'added':
         return ` + ${item.key}: ${item.value}`;
@@ -33,11 +32,12 @@ const stringfy = (array) => {
         return [` - ${item.key}: ${item.value[0]}\n + ${item.key}: ${item.value[1]}`];
       case 'unchanged':
         return `   ${item.key}: ${item.value}`;
+      default:
+        throw new Error('Wrong type');
     }
-  })
+  });
   return ['{', ...lines, '}'].join('\n');
-}
-
+};
 
 export default (filepath1, filepath2) => {
   const getFixturesPath = (filename) => path.resolve(process.cwd(), filename);
