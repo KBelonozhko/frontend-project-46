@@ -4,10 +4,11 @@ env:
 extends: airbnb-base
 overrides: []
 parserOptions:
-  ecmaVersion: latest
+  ecmaVersion: 2020
   sourceType: module
 rules:
   no-console: 0
+  no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }] # разрешает подчёркивание в именах только для двух констант
   import/extensions: # FIXME: remove when rule will be adjusted for new nodejs version
     - error
     - ignorePackages

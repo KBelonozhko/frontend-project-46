@@ -25,13 +25,13 @@ const stringfy = (arr) => {
   const lines = arr.map((item) => {
     switch (item.type) {
       case 'added':
-        return ` + ${item.key}: ${item.value}`;
+        return `  + ${item.key}: ${item.value}`;
       case 'deleted':
-        return ` - ${item.key}: ${item.value}`;
+        return `  - ${item.key}: ${item.value}`;
       case 'changed':
-        return [` - ${item.key}: ${item.value[0]}\n + ${item.key}: ${item.value[1]}`];
+        return [`  - ${item.key}: ${item.value[0]}\n  + ${item.key}: ${item.value[1]}`];
       case 'unchanged':
-        return `   ${item.key}: ${item.value}`;
+        return `    ${item.key}: ${item.value}`;
       default:
         throw new Error('Wrong type');
     }
@@ -48,5 +48,6 @@ export default (filepath1, filepath2) => {
   const dataParse1 = JSON.parse(data1);
   const dataParse2 = JSON.parse(data2);
   const arrObjects = getDifferenceTrees(dataParse1, dataParse2);
+
   return stringfy(arrObjects);
 };
