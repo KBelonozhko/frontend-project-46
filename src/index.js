@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs';
 import path from 'path';
 import _ from 'lodash';
+import parse from './parsers.js';
 
 const getDifferenceTrees = (dataObj1, dataObj2) => {
   const keys1 = Object.keys(dataObj1);
@@ -39,15 +40,13 @@ const stringfy = (arr) => {
   return ['{', ...lines, '}'].join('\n');
 };
 
+const getFixturesPath = (filename) => path.resolve(process.cwd(), filename);
+const getExtantion = (filename) => path.extname(filename);
+
+const getData = (filepath) => parse(readFileSync(getFixturesPath(filepath), 'utf-8'), getExtantion(filepath));
+
 export default (filepath1, filepath2) => {
-  const getFixturesPath = (filename) => path.resolve(process.cwd(), filename);
-
-  const data1 = readFileSync(getFixturesPath(filepath1), 'utf-8');
-  const data2 = readFileSync(getFixturesPath(filepath2), 'utf-8');
-
-  const dataParse1 = JSON.parse(data1);
-  const dataParse2 = JSON.parse(data2);
-  const arrObjects = getDifferenceTrees(dataParse1, dataParse2);
+  const arrObjects = getDifferenceTrees(getData(filepath1), getData(filepath2));
 
   return stringfy(arrObjects);
 };
