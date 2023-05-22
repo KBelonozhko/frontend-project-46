@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import path from 'path';
 import parse from './parsers.js';
 import getDifferenceTrees from './difftree.js';
-import formatter from './formatters.js';
+import formatter from './formatters/index.js';
 
 const getFixturesPath = (filename) => path.resolve(process.cwd(), filename);
 const getExtantion = (filename) => path.extname(filename);
