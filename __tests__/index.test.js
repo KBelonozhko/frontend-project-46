@@ -25,3 +25,11 @@ test('JSON comparison', () => {
 test('yaml comparison', () => {
   expect(genDiff(getFixturePath('filenested1.yaml'), getFixturePath('filenested2.yaml'))).toEqual(readFile('testNestedFile.txt'));
 });
+
+test('plain yaml comparison', () => {
+  expect(genDiff(getFixturePath('filenested1.yaml'), getFixturePath('filenested2.yaml'), 'plain')).toEqual(readFile('testPlainFile.txt'));
+});
+
+test('plain json comparison', () => {
+  expect(genDiff(getFixturePath('filenested1.json'), getFixturePath('filenested2.json'), 'plain')).toEqual(readFile('testPlainFile.txt'));
+});
