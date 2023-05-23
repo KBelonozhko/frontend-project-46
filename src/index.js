@@ -11,5 +11,6 @@ const getData = (filepath) => parse(readFileSync(getFixturesPath(filepath), 'utf
 
 export default (filepath1, filepath2, format = 'stylish') => {
   const arrObject = getDifferenceTrees(getData(filepath1), getData(filepath2));
+
   return formatter(arrObject, format);
 };

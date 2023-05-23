@@ -5,6 +5,7 @@ const stringfy = (value) => {
   if (typeof value === 'string') {
     return `'${value}'`;
   }
+
   return value;
 };
 
@@ -28,6 +29,7 @@ const plain = (node) => {
       }
     });
     const result = nodeLines.filter((item) => item !== null);
+
     return result.join('\n');
   };
 
