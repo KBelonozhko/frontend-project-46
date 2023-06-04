@@ -1,7 +1,9 @@
 import _ from 'lodash';
 
 const replacer = ' ';
-const getIndent = (depth, spaceCount = 4) => replacer.repeat(depth * spaceCount - 2);
+const indentCount = 2;
+const depthStep = 1;
+const getIndent = (depth, spaceCount = 4) => replacer.repeat(depth * spaceCount - indentCount);
 const getBackIndent = (depth, spaceCount = 4) => replacer.repeat(depth * spaceCount);
 
 const stringfy = (arr, depth) => {
@@ -10,12 +12,12 @@ const stringfy = (arr, depth) => {
   }
   const lines = Object
     .entries(arr)
-    .map(([key, val]) => `${getIndent(depth)}  ${key}: ${stringfy(val, depth + 1)}`);
+    .map(([key, val]) => `${getIndent(depth)}  ${key}: ${stringfy(val, depth + depthStep)}`);
 
-  return ['{', ...lines, `${getBackIndent(depth - 1)}}`].join('\n');
+  return ['{', ...lines, `${getBackIndent(depth - depthStep)}}`].join('\n');
 };
 
-const stylish = (node) => {
+const stylish = (node, defaultDepth = 1) => {
   const iter = (currentNode, depth) => {
     const nodeLines = currentNode.map((item) => {
       const {
@@ -23,15 +25,15 @@ const stylish = (node) => {
       } = item;
       switch (type) {
         case 'nested':
-          return `${getIndent(depth)}  ${key}: {\n${iter(item.children, depth + 1)}\n${getBackIndent(depth)}}`;
+          return `${getIndent(depth)}  ${key}: {\n${iter(item.children, depth + depthStep)}\n${getBackIndent(depth)}}`;
         case 'added':
-          return `${getIndent(depth)}+ ${key}: ${stringfy(value, depth + 1)}`;
+          return `${getIndent(depth)}+ ${key}: ${stringfy(value, depth + depthStep)}`;
         case 'deleted':
-          return `${getIndent(depth)}- ${key}: ${stringfy(value, depth + 1)}`;
+          return `${getIndent(depth)}- ${key}: ${stringfy(value, depth + depthStep)}`;
         case 'changed':
-          return `${getIndent(depth)}- ${key}: ${stringfy(item.value1, depth + 1)}\n${getIndent(depth)}+ ${key}: ${stringfy(item.value2, depth + 1)}`;
+          return `${getIndent(depth)}- ${key}: ${stringfy(item.value1, depth + depthStep)}\n${getIndent(depth)}+ ${key}: ${stringfy(item.value2, depth + depthStep)}`;
         case 'unchanged':
-          return `${getIndent(depth)}  ${key}: ${stringfy(value, depth + 1)}`;
+          return `${getIndent(depth)}  ${key}: ${stringfy(value, depth + depthStep)}`;
         default:
           throw new Error('Wrong type');
       }
@@ -40,7 +42,7 @@ const stylish = (node) => {
     return nodeLines.join('\n');
   };
 
-  return `{\n${iter(node, 1)}\n}`;
+  return `{\n${iter(node, defaultDepth)}\n}`;
 };
 
 export default stylish;
