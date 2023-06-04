@@ -37,11 +37,7 @@ Utility features:
 
 ### Demonstration of the app:
 
-#### Comparison of flat files (JSON, yml)
-
-[![asciicast](https://asciinema.org/a/pAkpxuWTWmLNiaX7eRfhCbsTa.svg)](https://asciinema.org/a/pAkpxuWTWmLNiaX7eRfhCbsTa)
-
-#### Recursive comparison
+#### Recursive comparison (JSON, yaml)
 
 [![asciicast](https://asciinema.org/a/AusnzCI48s4nlknNxiT608ENl.svg)](https://asciinema.org/a/AusnzCI48s4nlknNxiT608ENl)
 
