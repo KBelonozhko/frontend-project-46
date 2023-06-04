@@ -31,7 +31,8 @@ const stylish = (node, defaultDepth = 1) => {
         case 'deleted':
           return `${getIndent(depth)}- ${key}: ${stringfy(value, depth + depthStep)}`;
         case 'changed':
-          return `${getIndent(depth)}- ${key}: ${stringfy(item.value1, depth + depthStep)}\n${getIndent(depth)}+ ${key}: ${stringfy(item.value2, depth + depthStep)}`;
+          return [`${getIndent(depth)}- ${key}: ${stringfy(item.value1, depth + depthStep)}`,
+            `${getIndent(depth)}+ ${key}: ${stringfy(item.value2, depth + depthStep)}`].join('\n');
         case 'unchanged':
           return `${getIndent(depth)}  ${key}: ${stringfy(value, depth + depthStep)}`;
         default:
