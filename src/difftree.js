@@ -8,11 +8,14 @@ const getDifferenceTrees = (dataObj1, dataObj2) => {
   const diffTrees = keys.map((key) => {
     if (_.isObject(dataObj1[key]) && _.isObject(dataObj2[key])) {
       return { key, children: getDifferenceTrees(dataObj1[key], dataObj2[key]), type: 'nested' };
-    } if (!Object.hasOwn(dataObj1, key)) {
+    }
+    if (!Object.hasOwn(dataObj1, key)) {
       return { key, value: dataObj2[key], type: 'added' };
-    } if (!Object.hasOwn(dataObj2, key)) {
+    }
+    if (!Object.hasOwn(dataObj2, key)) {
       return { key, value: dataObj1[key], type: 'deleted' };
-    } if (dataObj1[key] !== dataObj2[key]) {
+    }
+    if (dataObj1[key] !== dataObj2[key]) {
       return {
         key, value1: dataObj1[key], value2: dataObj2[key], type: 'changed',
       };
