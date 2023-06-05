@@ -17,6 +17,6 @@ test.each([
   ['filenested1.yaml', 'filenested2.yaml', 'testPlainFile.txt', 'plain'],
   ['filenested1.json', 'filenested2.json', 'testJSONFile.txt', 'json'],
   ['filenested1.yaml', 'filenested2.yaml', 'testJSONFile.txt', 'json'],
-])('test formatters comparison', (file1, file2, testFile, format) => {
+])('formatters comparison', (file1, file2, testFile, format) => {
   expect(genDiff(getFixturePath(file1), getFixturePath(file2), format)).toEqual(readFile(testFile));
 });
